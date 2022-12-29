@@ -1,0 +1,23 @@
+{
+  "name": "salary-calculator-v2.0",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evgeniy-kolmak/salary-calculator-v2.0.git"
+  },
+  "keywords": [],
+  "author": "Evgeniy Kolmak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evgeniy-kolmak/salary-calculator-v2.0/issues"
+  },
+  "homepage": "https://github.com/evgeniy-kolmak/salary-calculator-v2.0#readme",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
