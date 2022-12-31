@@ -39,10 +39,29 @@ const tariffRate = [0, 1.86, 2.16, 2.51, 2.59, 2.71, 2.77, 2.98, 4.07];
 const workExperience = [0, 0, 0.08, 0.12, 0.15];
 const hardshipАllowance = [0, 0.1, 0.14];
 
-const form: HTMLFormElement | null = document.querySelector('.form');
+const startButton = document.querySelector<HTMLButtonElement>('.start');
+const backButton = document.querySelector<HTMLButtonElement>('.back');
+
+const firstScreen = document.querySelector<HTMLDivElement>('.first-screen');
+const middleScreen = document.querySelector<HTMLDivElement>('.middle-screen');
+const lastScreen = document.querySelector<HTMLDivElement>('.last-screen');
+
+startButton?.addEventListener('click', function (e) {
+  e.preventDefault();
+  firstScreen?.classList.remove('visible');
+  middleScreen?.classList.add('visible');
+
+})
+
+
+const form = document.querySelector<HTMLFormElement>('.form');
 
 form?.addEventListener('submit', function (e: Event) {
   e.preventDefault();
+
+  middleScreen?.classList.remove('visible');
+  lastScreen?.classList.add('visible')
+
   const bonus: HTMLInputElement = form.bonus;
   const workoutHours: HTMLInputElement = form.workoutHours;
   const nightHours: HTMLInputElement = form.nightHours;
@@ -90,10 +109,9 @@ form?.addEventListener('submit', function (e: Event) {
       surtax: (dirtySalary * 0.01).toFixed(2),
       union: (dirtySalary * 0.01).toFixed(2)
     }
-  }
+  };
 
-
-})
+});
 
 
 function getNightHours(tariff: number, nightHours: number): number {
@@ -106,10 +124,28 @@ function getProfessionalSkill(index: number): number {
   if (6 <= index && index <= 7) return 0.21;
   if (index > 7) return 0.23;
   return 0;
-}
+};
 
 function getOverHours(workOutHour: number) {
   const month = new Date().getMonth();
   return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
 
-}
+};
+
+
+backButton?.addEventListener('click', function (e) {
+  e.preventDefault();
+  lastScreen?.classList.remove('visible');
+  firstScreen?.classList.add('visible');
+
+});
+
+
+
+
+
+
+
+
+
+
