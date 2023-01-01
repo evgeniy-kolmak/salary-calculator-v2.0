@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc -w",
     "deploy": "gh-pages -d public",
-    "predeploy": "tsc"
+    "predeploy": "tsc && sass src/sass:public/css"
   },
   "repository": {
     "type": "git",
