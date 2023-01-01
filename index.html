@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Калькулятор зарплаты</title>
+</head>
+
+<body>
+  <div class="container">
+    <section class="first-screen visible">
+      <button class="button start">Начать</button>
+    </section>
+    <!-- /.first-screen -->
+    <section class="middle-screen">
+      <form class="form">
+        <input name="workoutHours" placeholder="Отработаннные часы" autocomplete="off" type="number">
+        <input name="bonus" placeholder="Премия ( % )" autocomplete="off" type="number">
+        <select class="select tariff" name="tariff">
+          <option>Выберите разряд</option>
+          <option>2 разряд</option>
+          <option>3 разряд</option>
+          <option>4 разряд</option>
+          <option>4 разряд (коэффициент +)</option>
+          <option>4 разряд (коэффициент ++)</option>
+          <option>5 разряд</option>
+          <option>5 разряд(коэффициент +)</option>
+          <option>6 разряд</option>
+        </select>
+        <select class="select experience" name="experience">
+          <option>Ваш стаж</option>
+          <option>Менее года</option>
+          <option>От 1 года до 3</option>
+          <option>От 3 до 7 лет </option>
+          <option>7 лет и более</option>
+        </select>
+        <select class="select hardship" name="hardship">
+          <option>Надбавка за вредность</option>
+          <option>10%</option>
+          <option>14%</option>
+        </select>
+        <input name="nightHours" placeholder="Ночные часы" autocomplete="off" type="number">
+        <input name="oneTimeBonus" placeholder="Разовая премия" autocomplete="off" type="number">
+        <button class="button">Рассчитать</button>
+      </form>
+    </section>
+    <!-- /.middle-screen -->
+    <section class="last-screen">
+      <button class="button back">Назад</button>
+    </section>
+    <!-- /.last-screen -->
+  </div>
+  <!-- /.container -->
+  <script src="index.js"></script>
+</body>
+
+</html>
