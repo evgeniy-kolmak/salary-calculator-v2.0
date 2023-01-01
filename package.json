@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc --watch",
+    "start": "tsc -w",
     "deploy": "gh-pages -d public",
-    "predeploy": "tsc --build"
+    "predeploy": "tsc"
   },
   "repository": {
     "type": "git",
