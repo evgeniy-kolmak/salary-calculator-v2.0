@@ -1,0 +1,15 @@
+name: Deployment Application
+on: [push, workflow_dispatch]
+env: 
+  TOKEN: ${{ secrets.TOKEN }}
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Get repository code
+       uses: actions/checkout@v3
+     - name: Include repository, build & deployment
+       run: |
+          git remote set-url origin https://git:${TOKEN}@github.com/evgeniy-kolmak/salary-calculator-v2.0.git
+          npm ci
+          npm run deploy  -u "evgeniy-kolmak <evgeniy.kolmak@gmail.com>"
