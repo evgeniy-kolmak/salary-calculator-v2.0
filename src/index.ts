@@ -17,20 +17,20 @@ interface Paycheck {
     clear: string,
   },
   list: {
-    baseSalary: string,
-    bonus: string,
-    experience: string,
-    professionalSkill: string,
-    hardship: string,
-    indexationIncome: string,
-    overHours: string,
-    nightHours: string
-    oneTimeBonus: string,
+    "Оклад": string,
+    "Премия": string,
+    "Надбавка за стаж": string,
+    "Профмастерство": string,
+    "Вредность": string,
+    "Индексация доходов": string,
+    "Сверхурочные": string,
+    "Ночные часы": string
+    "Разовая премия": string,
   },
   deduction: {
-    surtax: string,
-    pensionTax: string,
-    union: string,
+    "Подоходный налог": string,
+    "Пенсионный": string,
+    "Профсоюз": string,
   }
 
 }
@@ -45,6 +45,8 @@ const backButton = document.querySelector<HTMLButtonElement>('.back');
 const firstScreen = document.querySelector<HTMLDivElement>('.first-screen');
 const middleScreen = document.querySelector<HTMLDivElement>('.middle-screen');
 const lastScreen = document.querySelector<HTMLDivElement>('.last-screen');
+
+const output = document.querySelector<HTMLDivElement>('.output');
 
 startButton?.addEventListener('click', function (e) {
   e.preventDefault();
@@ -94,22 +96,25 @@ form?.addEventListener('submit', function (e: Event) {
       clear: clearSalary.toFixed(2)
     },
     list: {
-      baseSalary: baseSalary.toFixed(2),
-      bonus: (baseSalary * dataList.bonus).toFixed(2),
-      experience: (baseSalary * dataList.experience).toFixed(2),
-      professionalSkill: (baseSalary * dataList.professionalSkill).toFixed(2),
-      hardship: ((dataList.workoutHours * 1.076) * dataList.hardship).toFixed(2),
-      indexationIncome: dataList.indexationIncome.toFixed(2),
-      overHours: (dataList.overHours * dataList.tariff).toFixed(2),
-      nightHours: dataList.nightHours.toFixed(2),
-      oneTimeBonus: dataList.oneTimeBonus.toFixed(2),
+      "Оклад": baseSalary.toFixed(2),
+      "Премия": (baseSalary * dataList.bonus).toFixed(2),
+      "Надбавка за стаж": (baseSalary * dataList.experience).toFixed(2),
+      "Профмастерство": (baseSalary * dataList.professionalSkill).toFixed(2),
+      "Вредность": ((dataList.workoutHours * 1.076) * dataList.hardship).toFixed(2),
+      "Индексация доходов": dataList.indexationIncome.toFixed(2),
+      "Сверхурочные": (dataList.overHours * dataList.tariff).toFixed(2),
+      "Ночные часы": dataList.nightHours.toFixed(2),
+      "Разовая премия": dataList.oneTimeBonus.toFixed(2),
     },
     deduction: {
-      pensionTax: (dirtySalary * 0.13).toFixed(2),
-      surtax: (dirtySalary * 0.01).toFixed(2),
-      union: (dirtySalary * 0.01).toFixed(2)
+      "Подоходный налог": (dirtySalary * 0.13).toFixed(2),
+      "Пенсионный": (dirtySalary * 0.01).toFixed(2),
+      "Профсоюз": (dirtySalary * 0.01).toFixed(2)
     }
   };
+
+
+  createOfMarkup(paycheck);
 
 });
 
@@ -133,17 +138,75 @@ function getOverHours(workOutHour: number) {
 };
 
 
+
 backButton?.addEventListener('click', function (e) {
   e.preventDefault();
   lastScreen?.classList.remove('visible');
   firstScreen?.classList.add('visible');
 
+  if (output) {
+    for (let i = 0; i < output.children.length; i++) {
+      if (output && !['BUTTON', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+        output?.children[i].remove();
+      }
+
+    }
+  }
+
 });
 
 
+function createOfMarkup<T extends Paycheck>(arg: T): void {
+  const titleClearWage = document.createElement('div');
+  titleClearWage.textContent = `Зарплата за месяц составит ${arg.wage.clear} byn`.toUpperCase();
+  titleClearWage.classList.add('show-wage--clear');
+  output?.prepend(titleClearWage);
+  const titleDirtyWage = document.createElement('div');
+  titleDirtyWage.textContent = `Всего начислено ${arg.wage.dirty} byn`.toUpperCase();
+  titleDirtyWage.classList.add('show-wage--dirty');
+  output?.prepend(titleDirtyWage);
 
+  const tittle: HTMLTitleElement[] = Array.from(document.querySelectorAll('.title'));
 
+  const list = Object.entries(arg.list);
+  const deduction = Object.entries(arg.deduction);
 
+  const ulList = document.createElement('ul');
+
+  for (let i = 0; i < list.length; i++) {
+    const li = document.createElement('li');
+    li.classList.add('wage-item');
+    const h3 = document.createElement('h3');
+    const span = document.createElement('span');
+
+    h3.textContent = list[i][0];
+    span.textContent = `${list[i][1]} byn`.toUpperCase();
+
+    li.prepend(h3);
+    li.append(span);
+    ulList.append(li);
+  }
+
+  tittle[0]?.after(ulList);
+
+  const ulDeduction = document.createElement('ul');
+  for (let i = 0; i < deduction.length; i++) {
+    const li = document.createElement('li');
+    li.classList.add('wage-item');
+    const h3 = document.createElement('h3');
+    const span = document.createElement('span');
+
+    h3.textContent = deduction[i][0];
+    span.textContent = `${deduction[i][1]} byn`.toUpperCase();
+
+    li.prepend(h3);
+    li.append(span);
+    ulDeduction.append(li);
+
+  }
+
+  tittle[1]?.after(ulDeduction);
+}
 
 
 
