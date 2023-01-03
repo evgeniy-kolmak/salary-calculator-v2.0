@@ -91,7 +91,7 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.add('visible');
     if (output) {
         for (var i = 0; i < output.children.length; i++) {
-            if (output && !['BUTTON', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+            if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
                 output === null || output === void 0 ? void 0 : output.children[i].remove();
             }
         }
@@ -99,14 +99,9 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
 });
 function createOfMarkup(arg) {
     var _a, _b;
-    var titleClearWage = document.createElement('div');
-    titleClearWage.textContent = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 ".concat(arg.wage.clear, " byn").toUpperCase();
-    titleClearWage.classList.add('show-wage--clear');
-    output === null || output === void 0 ? void 0 : output.prepend(titleClearWage);
-    var titleDirtyWage = document.createElement('div');
-    titleDirtyWage.textContent = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E ".concat(arg.wage.dirty, " byn").toUpperCase();
-    titleDirtyWage.classList.add('show-wage--dirty');
-    output === null || output === void 0 ? void 0 : output.prepend(titleDirtyWage);
+    var titleWage = Array.from(document.querySelectorAll('.show-wage'));
+    titleWage[0].textContent = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 ".concat(arg.wage.clear, " byn").toUpperCase();
+    titleWage[1].textContent = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E ".concat(arg.wage.dirty, " byn").toUpperCase();
     var tittle = Array.from(document.querySelectorAll('.title'));
     var list = Object.entries(arg.list);
     var deduction = Object.entries(arg.deduction);
