@@ -35,6 +35,10 @@ input, select {
   outline: none;
 }
 
+li {
+  list-style: none;
+}
+
 body {
   background-image: linear-gradient(90deg, #3a7ea1 0%, #89c1e9 100%);
   font-family: Roboto, sans-serif;
@@ -67,6 +71,70 @@ body {
 
 .visible {
   display: flex;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-image: linear-gradient(60deg, #ACC7D5 0%, #D4EAFA 100%);
+  width: 455px;
+  border-radius: 40px;
+  box-shadow: 0px 5px 17px rgba(58, 57, 57, 0.2);
+  padding: 0 30px;
+}
+
+.show-wage--clear {
+  text-align: center;
+  margin-top: 10px;
+  color: #0B4870;
+  font-weight: 700;
+  line-height: 30px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.show-wage--dirty {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 30px;
+  margin-top: 10px;
+  color: #EF6669;
+  text-transform: none;
+}
+
+.title {
+  position: relative;
+  margin: 20px 0;
+}
+.title::before, .title::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+.title::before {
+  left: -20px;
+  background-color: #49A3F3;
+}
+.title::after {
+  right: -20px;
+  background-color: #EF6669;
+}
+
+.wage-item {
+  border: 2px solid #0B4870;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+  list-style: none;
+  text-align: center;
+  margin: 8px 0;
+  padding: 5px;
+  border-radius: 4px;
 }
 
 /*# sourceMappingURL=style.css.map */

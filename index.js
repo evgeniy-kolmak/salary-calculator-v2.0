@@ -8,6 +8,7 @@ var backButton = document.querySelector('.back');
 var firstScreen = document.querySelector('.first-screen');
 var middleScreen = document.querySelector('.middle-screen');
 var lastScreen = document.querySelector('.last-screen');
+var output = document.querySelector('.output');
 startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', function (e) {
     e.preventDefault();
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.remove('visible');
@@ -46,22 +47,23 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
             clear: clearSalary.toFixed(2)
         },
         list: {
-            baseSalary: baseSalary.toFixed(2),
-            bonus: (baseSalary * dataList.bonus).toFixed(2),
-            experience: (baseSalary * dataList.experience).toFixed(2),
-            professionalSkill: (baseSalary * dataList.professionalSkill).toFixed(2),
-            hardship: ((dataList.workoutHours * 1.076) * dataList.hardship).toFixed(2),
-            indexationIncome: dataList.indexationIncome.toFixed(2),
-            overHours: (dataList.overHours * dataList.tariff).toFixed(2),
-            nightHours: dataList.nightHours.toFixed(2),
-            oneTimeBonus: dataList.oneTimeBonus.toFixed(2),
+            "Оклад": baseSalary.toFixed(2),
+            "Премия": (baseSalary * dataList.bonus).toFixed(2),
+            "Надбавка за стаж": (baseSalary * dataList.experience).toFixed(2),
+            "Профмастерство": (baseSalary * dataList.professionalSkill).toFixed(2),
+            "Вредность": ((dataList.workoutHours * 1.076) * dataList.hardship).toFixed(2),
+            "Индексация доходов": dataList.indexationIncome.toFixed(2),
+            "Сверхурочные": (dataList.overHours * dataList.tariff).toFixed(2),
+            "Ночные часы": dataList.nightHours.toFixed(2),
+            "Разовая премия": dataList.oneTimeBonus.toFixed(2),
         },
         deduction: {
-            pensionTax: (dirtySalary * 0.13).toFixed(2),
-            surtax: (dirtySalary * 0.01).toFixed(2),
-            union: (dirtySalary * 0.01).toFixed(2)
+            "Подоходный налог": (dirtySalary * 0.13).toFixed(2),
+            "Пенсионный": (dirtySalary * 0.01).toFixed(2),
+            "Профсоюз": (dirtySalary * 0.01).toFixed(2)
         }
     };
+    createOfMarkup(paycheck);
 });
 function getNightHours(tariff, nightHours) {
     return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
@@ -87,4 +89,51 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
     e.preventDefault();
     lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.remove('visible');
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.add('visible');
+    if (output) {
+        for (var i = 0; i < output.children.length; i++) {
+            if (output && !['BUTTON', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+                output === null || output === void 0 ? void 0 : output.children[i].remove();
+            }
+        }
+    }
 });
+function createOfMarkup(arg) {
+    var _a, _b;
+    var titleClearWage = document.createElement('div');
+    titleClearWage.textContent = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 ".concat(arg.wage.clear, " byn").toUpperCase();
+    titleClearWage.classList.add('show-wage--clear');
+    output === null || output === void 0 ? void 0 : output.prepend(titleClearWage);
+    var titleDirtyWage = document.createElement('div');
+    titleDirtyWage.textContent = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E ".concat(arg.wage.dirty, " byn").toUpperCase();
+    titleDirtyWage.classList.add('show-wage--dirty');
+    output === null || output === void 0 ? void 0 : output.prepend(titleDirtyWage);
+    var tittle = Array.from(document.querySelectorAll('.title'));
+    var list = Object.entries(arg.list);
+    var deduction = Object.entries(arg.deduction);
+    var ulList = document.createElement('ul');
+    for (var i = 0; i < list.length; i++) {
+        var li = document.createElement('li');
+        li.classList.add('wage-item');
+        var h3 = document.createElement('h3');
+        var span = document.createElement('span');
+        h3.textContent = list[i][0];
+        span.textContent = "".concat(list[i][1], " byn").toUpperCase();
+        li.prepend(h3);
+        li.append(span);
+        ulList.append(li);
+    }
+    (_a = tittle[0]) === null || _a === void 0 ? void 0 : _a.after(ulList);
+    var ulDeduction = document.createElement('ul');
+    for (var i = 0; i < deduction.length; i++) {
+        var li = document.createElement('li');
+        li.classList.add('wage-item');
+        var h3 = document.createElement('h3');
+        var span = document.createElement('span');
+        h3.textContent = deduction[i][0];
+        span.textContent = "".concat(deduction[i][1], " byn").toUpperCase();
+        li.prepend(h3);
+        li.append(span);
+        ulDeduction.append(li);
+    }
+    (_b = tittle[1]) === null || _b === void 0 ? void 0 : _b.after(ulDeduction);
+}
