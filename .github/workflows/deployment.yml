@@ -10,6 +10,8 @@ jobs:
        uses: actions/checkout@v3
      - name: Include repository, build & deployment
        run: |
+          git config user.email "evgeniy-kolmak"
+          git config user.name "evgeniy.kolmak@gmail.com"
           git remote set-url origin https://git:${TOKEN}@github.com/evgeniy-kolmak/salary-calculator-v2.0.git
           npm ci
-          npm run deploy  -u "evgeniy-kolmak <evgeniy.kolmak@gmail.com>"
+          npm run deploy -u "evgeniy-kolmak <evgeniy.kolmak@gmail.com>"
