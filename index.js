@@ -8,17 +8,16 @@ var backButton = document.querySelector('.back');
 var firstScreen = document.querySelector('.first-screen');
 var middleScreen = document.querySelector('.middle-screen');
 var lastScreen = document.querySelector('.last-screen');
+var form = document.querySelector('.form');
+var preloader = document.querySelector('.preloader-overlay');
 var output = document.querySelector('.output');
 startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', function (e) {
     e.preventDefault();
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.remove('visible');
     middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.add('visible');
 });
-var form = document.querySelector('.form');
 form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
     e.preventDefault();
-    middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.remove('visible');
-    lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.add('visible');
     var bonus = form.bonus;
     var workoutHours = form.workoutHours;
     var nightHours = form.nightHours;
@@ -64,10 +63,30 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         }
     };
     createOfMarkup(paycheck);
+    preloader === null || preloader === void 0 ? void 0 : preloader.classList.add('visible');
+    var time = getDelayPreloader();
+    setTimeout(function () {
+        preloader === null || preloader === void 0 ? void 0 : preloader.classList.remove('visible');
+        middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.remove('visible');
+        lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.add('visible');
+    }, time);
+});
+backButton === null || backButton === void 0 ? void 0 : backButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.remove('visible');
+    firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.add('visible');
+    if (output) {
+        for (var i = 0; i < output.children.length; i++) {
+            if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+                output === null || output === void 0 ? void 0 : output.children[i].remove();
+            }
+        }
+    }
 });
 function getNightHours(tariff, nightHours) {
     return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
 }
+;
 function getProfessionalSkill(index) {
     if (index === 2)
         return 0.15;
@@ -85,18 +104,6 @@ function getOverHours(workOutHour) {
     return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
 }
 ;
-backButton === null || backButton === void 0 ? void 0 : backButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.remove('visible');
-    firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.add('visible');
-    if (output) {
-        for (var i = 0; i < output.children.length; i++) {
-            if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
-                output === null || output === void 0 ? void 0 : output.children[i].remove();
-            }
-        }
-    }
-});
 function createOfMarkup(arg) {
     var _a, _b;
     var titleWage = Array.from(document.querySelectorAll('.show-wage'));
@@ -117,6 +124,7 @@ function createOfMarkup(arg) {
         li.append(span);
         ulList.append(li);
     }
+    ;
     (_a = tittle[0]) === null || _a === void 0 ? void 0 : _a.after(ulList);
     var ulDeduction = document.createElement('ul');
     for (var i = 0; i < deduction.length; i++) {
@@ -130,5 +138,14 @@ function createOfMarkup(arg) {
         li.append(span);
         ulDeduction.append(li);
     }
+    ;
     (_b = tittle[1]) === null || _b === void 0 ? void 0 : _b.after(ulDeduction);
+}
+;
+function getDelayPreloader() {
+    var value = 0;
+    while (value < 1500) {
+        value = Math.floor(Math.random() * 5000);
+    }
+    return value;
 }
