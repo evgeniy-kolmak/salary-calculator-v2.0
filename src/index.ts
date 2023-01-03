@@ -46,6 +46,8 @@ const firstScreen = document.querySelector<HTMLDivElement>('.first-screen');
 const middleScreen = document.querySelector<HTMLDivElement>('.middle-screen');
 const lastScreen = document.querySelector<HTMLDivElement>('.last-screen');
 
+const form = document.querySelector<HTMLFormElement>('.form');
+const preloader = document.querySelector<HTMLDivElement>('.preloader-overlay');
 const output = document.querySelector<HTMLDivElement>('.output');
 
 startButton?.addEventListener('click', function (e) {
@@ -56,13 +58,8 @@ startButton?.addEventListener('click', function (e) {
 })
 
 
-const form = document.querySelector<HTMLFormElement>('.form');
-
 form?.addEventListener('submit', function (e: Event) {
   e.preventDefault();
-
-  middleScreen?.classList.remove('visible');
-  lastScreen?.classList.add('visible')
 
   const bonus: HTMLInputElement = form.bonus;
   const workoutHours: HTMLInputElement = form.workoutHours;
@@ -84,7 +81,6 @@ form?.addEventListener('submit', function (e: Event) {
     nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
     oneTimeBonus: Number(oneTimeBonus.value),
   };
-
 
   const baseSalary = dataList.workoutHours * dataList.tariff;
   const dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.076 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
@@ -113,31 +109,18 @@ form?.addEventListener('submit', function (e: Event) {
     }
   };
 
-
   createOfMarkup(paycheck);
 
+  preloader?.classList.add('visible');
+  const time = getDelayPreloader();
+
+  setTimeout(() => {
+    preloader?.classList.remove('visible');
+    middleScreen?.classList.remove('visible');
+    lastScreen?.classList.add('visible')
+  }, time);
+
 });
-
-
-function getNightHours(tariff: number, nightHours: number): number {
-  return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
-}
-
-function getProfessionalSkill(index: number): number {
-  if (index === 2) return 0.15;
-  if (3 <= index && index <= 5) return 0.18;
-  if (6 <= index && index <= 7) return 0.21;
-  if (index > 7) return 0.23;
-  return 0;
-};
-
-function getOverHours(workOutHour: number) {
-  const month = new Date().getMonth();
-  return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
-
-};
-
-
 
 backButton?.addEventListener('click', function (e) {
   e.preventDefault();
@@ -154,6 +137,25 @@ backButton?.addEventListener('click', function (e) {
   }
 
 });
+
+
+function getNightHours(tariff: number, nightHours: number): number {
+  return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
+};
+
+function getProfessionalSkill(index: number): number {
+  if (index === 2) return 0.15;
+  if (3 <= index && index <= 5) return 0.18;
+  if (6 <= index && index <= 7) return 0.21;
+  if (index > 7) return 0.23;
+  return 0;
+};
+
+function getOverHours(workOutHour: number) {
+  const month = new Date().getMonth();
+  return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
+
+};
 
 
 function createOfMarkup<T extends Paycheck>(arg: T): void {
@@ -180,7 +182,7 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
     li.prepend(h3);
     li.append(span);
     ulList.append(li);
-  }
+  };
 
   tittle[0]?.after(ulList);
 
@@ -198,12 +200,17 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
     li.append(span);
     ulDeduction.append(li);
 
-  }
+  };
 
   tittle[1]?.after(ulDeduction);
+};
+
+
+
+function getDelayPreloader() {
+  let value = 0;
+  while (value < 1500) {
+    value = Math.floor(Math.random() * 5000);
+  }
+  return value;
 }
-
-
-
-
-
