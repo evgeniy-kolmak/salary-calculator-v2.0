@@ -146,7 +146,7 @@ backButton?.addEventListener('click', function (e) {
 
   if (output) {
     for (let i = 0; i < output.children.length; i++) {
-      if (output && !['BUTTON', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+      if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
         output?.children[i].remove();
       }
 
@@ -157,16 +157,11 @@ backButton?.addEventListener('click', function (e) {
 
 
 function createOfMarkup<T extends Paycheck>(arg: T): void {
-  const titleClearWage = document.createElement('div');
-  titleClearWage.textContent = `Зарплата за месяц составит ${arg.wage.clear} byn`.toUpperCase();
-  titleClearWage.classList.add('show-wage--clear');
-  output?.prepend(titleClearWage);
-  const titleDirtyWage = document.createElement('div');
-  titleDirtyWage.textContent = `Всего начислено ${arg.wage.dirty} byn`.toUpperCase();
-  titleDirtyWage.classList.add('show-wage--dirty');
-  output?.prepend(titleDirtyWage);
+  const titleWage = Array.from<HTMLElement>(document.querySelectorAll('.show-wage'));
+  titleWage[0].textContent = `Зарплата за месяц составит ${arg.wage.clear} byn`.toUpperCase();
+  titleWage[1].textContent = `Всего начислено ${arg.wage.dirty} byn`.toUpperCase();
 
-  const tittle: HTMLTitleElement[] = Array.from(document.querySelectorAll('.title'));
+  const tittle = Array.from<HTMLElement>(document.querySelectorAll('.title'));
 
   const list = Object.entries(arg.list);
   const deduction = Object.entries(arg.deduction);
