@@ -50,6 +50,9 @@ const form = document.querySelector<HTMLFormElement>('.form');
 const preloader = document.querySelector<HTMLDivElement>('.preloader-overlay');
 const output = document.querySelector<HTMLDivElement>('.output');
 
+const month = new Date().getMonth();
+
+
 startButton?.addEventListener('click', function (e) {
   e.preventDefault();
   firstScreen?.classList.remove('visible');
@@ -77,7 +80,7 @@ form?.addEventListener('submit', function (e: Event) {
     professionalSkill: getProfessionalSkill(tariff.selectedIndex),
     hardship: hardshipАllowance[hardship.selectedIndex],
     indexationIncome: 147.60,
-    overHours: getOverHours(Number(workoutHours.value)),
+    overHours: getOverHours(Number(workoutHours.value), month),
     nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
     oneTimeBonus: Number(oneTimeBonus.value),
   };
@@ -138,6 +141,14 @@ backButton?.addEventListener('click', function (e) {
 
 });
 
+function appLoad(month: number): void {
+  const nomrHours = document.querySelector<HTMLParagraphElement>('.norm-hours');
+  if (nomrHours) {
+    nomrHours.textContent = `Норма часов ${monthHours[month]} в этом месяце`;
+  }
+
+}
+
 
 function getNightHours(tariff: number, nightHours: number): number {
   return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
@@ -151,8 +162,7 @@ function getProfessionalSkill(index: number): number {
   return 0;
 };
 
-function getOverHours(workOutHour: number) {
-  const month = new Date().getMonth();
+function getOverHours(workOutHour: number, month: number) {
   return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
 
 };
@@ -160,8 +170,8 @@ function getOverHours(workOutHour: number) {
 
 function createOfMarkup<T extends Paycheck>(arg: T): void {
   const titleWage = Array.from<HTMLElement>(document.querySelectorAll('.show-wage'));
-  titleWage[0].textContent = `Зарплата за месяц составит ${arg.wage.clear} byn`.toUpperCase();
-  titleWage[1].textContent = `Всего начислено ${arg.wage.dirty} byn`.toUpperCase();
+  titleWage[0].innerHTML = `Зарплата за месяц составит <u>${arg.wage.clear}</u> byn`.toUpperCase();
+  titleWage[1].innerHTML = `Всего начислено <u>${arg.wage.dirty}</u> byn`.toUpperCase();
 
   const tittle = Array.from<HTMLElement>(document.querySelectorAll('.title'));
 
@@ -206,7 +216,6 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
 };
 
 
-
 function getDelayPreloader() {
   let value = 0;
   while (value < 1500) {
@@ -214,3 +223,5 @@ function getDelayPreloader() {
   }
   return value;
 }
+
+appLoad(month);
