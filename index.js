@@ -11,6 +11,7 @@ var lastScreen = document.querySelector('.last-screen');
 var form = document.querySelector('.form');
 var preloader = document.querySelector('.preloader-overlay');
 var output = document.querySelector('.output');
+var month = new Date().getMonth();
 startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', function (e) {
     e.preventDefault();
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.remove('visible');
@@ -33,7 +34,7 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         professionalSkill: getProfessionalSkill(tariff.selectedIndex),
         hardship: hardshipАllowance[hardship.selectedIndex],
         indexationIncome: 147.60,
-        overHours: getOverHours(Number(workoutHours.value)),
+        overHours: getOverHours(Number(workoutHours.value), month),
         nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
         oneTimeBonus: Number(oneTimeBonus.value),
     };
@@ -83,6 +84,12 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
         }
     }
 });
+function appLoad(month) {
+    var nomrHours = document.querySelector('.norm-hours');
+    if (nomrHours) {
+        nomrHours.textContent = "\u041D\u043E\u0440\u043C\u0430 \u0447\u0430\u0441\u043E\u0432 ".concat(monthHours[month], " \u0432 \u044D\u0442\u043E\u043C \u043C\u0435\u0441\u044F\u0446\u0435");
+    }
+}
 function getNightHours(tariff, nightHours) {
     return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
 }
@@ -99,16 +106,15 @@ function getProfessionalSkill(index) {
     return 0;
 }
 ;
-function getOverHours(workOutHour) {
-    var month = new Date().getMonth();
+function getOverHours(workOutHour, month) {
     return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
 }
 ;
 function createOfMarkup(arg) {
     var _a, _b;
     var titleWage = Array.from(document.querySelectorAll('.show-wage'));
-    titleWage[0].textContent = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 ".concat(arg.wage.clear, " byn").toUpperCase();
-    titleWage[1].textContent = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E ".concat(arg.wage.dirty, " byn").toUpperCase();
+    titleWage[0].innerHTML = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 <u>".concat(arg.wage.clear, "</u> byn").toUpperCase();
+    titleWage[1].innerHTML = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E <u>".concat(arg.wage.dirty, "</u> byn").toUpperCase();
     var tittle = Array.from(document.querySelectorAll('.title'));
     var list = Object.entries(arg.list);
     var deduction = Object.entries(arg.deduction);
@@ -149,3 +155,4 @@ function getDelayPreloader() {
     }
     return value;
 }
+appLoad(month);

@@ -103,6 +103,10 @@ body {
   height: 100%;
 }
 
+.visible {
+  display: flex;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -125,8 +129,80 @@ body {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
 }
-.visible {
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.6);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+.info {
+  color: #306385;
+  padding: 30px;
+}
+.info-decription {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.info-norm-hours {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 400;
+  text-decoration: underline;
+  margin-bottom: 40px;
+}
+
+.prime {
+  align-items: center;
+  justify-content: space-between;
+  height: 930px;
+}
+.prime-image {
+  margin-bottom: 30px;
+}
+.prime-text {
   display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.prime-text__dicription {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.prime-text__disclaimer {
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 20px;
+  text-align: center;
+  margin-left: 10px;
+  color: #306385;
+}
+.prime-text__disclaimer--wrapper {
+  display: flex;
+  align-items: center;
+  background-color: rgba(202, 220, 230, 0.5490196078);
+  box-shadow: 0px 3px 10px rgba(119, 115, 115, 0.103);
+  padding: 25px 10px;
+  border-radius: 20px;
+}
+.prime-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10%;
 }
 
 .show-wage--clear {
@@ -150,6 +226,7 @@ body {
 .title {
   position: relative;
   margin: 20px 0;
+  font-size: 24px;
 }
 .title::before, .title::after {
   content: "";
@@ -180,6 +257,12 @@ body {
   margin: 8px 0;
   padding: 5px;
   border-radius: 4px;
+}
+
+.start {
+  box-shadow: 0 0 0 0 rgb(0, 0, 0);
+  transform: scale(1);
+  animation: pulse 2s infinite;
 }
 
 /*# sourceMappingURL=style.css.map */
