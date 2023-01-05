@@ -11,11 +11,18 @@ var lastScreen = document.querySelector('.last-screen');
 var form = document.querySelector('.form');
 var preloader = document.querySelector('.preloader-overlay');
 var output = document.querySelector('.output');
+var moodImgs = Array.from(document.querySelectorAll('.mood-img'));
+var moodBtns = Array.from(document.querySelectorAll('.mood-button'));
 var month = new Date().getMonth();
 startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', function (e) {
     e.preventDefault();
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.remove('visible');
     middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.add('visible');
+    moodImgs.forEach(function (el, i) { return el.onclick = function () {
+        moodBtns[i].checked = true;
+        moodImgs.forEach(function (item) { return item.classList.remove('focus'); });
+        el.classList.add('focus');
+    }; });
 });
 form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -34,6 +41,7 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         professionalSkill: getProfessionalSkill(tariff.selectedIndex),
         hardship: hardshipАllowance[hardship.selectedIndex],
         indexationIncome: 147.60,
+        mood: Number(form.mood.value),
         overHours: getOverHours(Number(workoutHours.value), month),
         nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
         oneTimeBonus: Number(oneTimeBonus.value),
@@ -61,7 +69,8 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
             "Подоходный налог": (dirtySalary * 0.13).toFixed(2),
             "Пенсионный": (dirtySalary * 0.01).toFixed(2),
             "Профсоюз": (dirtySalary * 0.01).toFixed(2)
-        }
+        },
+        mood: dataList.mood
     };
     createOfMarkup(paycheck);
     preloader === null || preloader === void 0 ? void 0 : preloader.classList.add('visible');
