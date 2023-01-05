@@ -6,6 +6,7 @@ interface DataList {
   professionalSkill: number,
   hardship: number,
   indexationIncome: number,
+  mood: number,
   overHours: number,
   nightHours: number
   oneTimeBonus: number,
@@ -31,7 +32,8 @@ interface Paycheck {
     "Подоходный налог": string,
     "Пенсионный": string,
     "Профсоюз": string,
-  }
+  },
+  mood: number
 
 }
 const monthHours = [167, 160, 175, 151, 167, 176, 160, 184, 168, 176, 167, 160];
@@ -50,13 +52,23 @@ const form = document.querySelector<HTMLFormElement>('.form');
 const preloader = document.querySelector<HTMLDivElement>('.preloader-overlay');
 const output = document.querySelector<HTMLDivElement>('.output');
 
+const moodImgs = Array.from(document.querySelectorAll<HTMLImageElement>('.mood-img'));
+const moodBtns = Array.from(document.querySelectorAll<HTMLInputElement>('.mood-button'));
+
 const month = new Date().getMonth();
+
 
 
 startButton?.addEventListener('click', function (e) {
   e.preventDefault();
   firstScreen?.classList.remove('visible');
   middleScreen?.classList.add('visible');
+  moodImgs.forEach((el, i) => el.onclick = () => {
+    moodBtns[i].checked = true;
+    moodImgs.forEach(item => item.classList.remove('focus'));
+    el.classList.add('focus');
+
+  });
 
 })
 
@@ -80,10 +92,14 @@ form?.addEventListener('submit', function (e: Event) {
     professionalSkill: getProfessionalSkill(tariff.selectedIndex),
     hardship: hardshipАllowance[hardship.selectedIndex],
     indexationIncome: 147.60,
+    mood: Number(form.mood.value),
     overHours: getOverHours(Number(workoutHours.value), month),
     nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
     oneTimeBonus: Number(oneTimeBonus.value),
   };
+
+
+
 
   const baseSalary = dataList.workoutHours * dataList.tariff;
   const dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.076 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
@@ -109,7 +125,8 @@ form?.addEventListener('submit', function (e: Event) {
       "Подоходный налог": (dirtySalary * 0.13).toFixed(2),
       "Пенсионный": (dirtySalary * 0.01).toFixed(2),
       "Профсоюз": (dirtySalary * 0.01).toFixed(2)
-    }
+    },
+    mood: dataList.mood
   };
 
   createOfMarkup(paycheck);
@@ -122,6 +139,7 @@ form?.addEventListener('submit', function (e: Event) {
     middleScreen?.classList.remove('visible');
     lastScreen?.classList.add('visible')
   }, time);
+
 
 });
 
@@ -216,12 +234,13 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
 };
 
 
-function getDelayPreloader() {
+function getDelayPreloader(): number {
   let value = 0;
   while (value < 1500) {
     value = Math.floor(Math.random() * 5000);
   }
   return value;
 }
+
 
 appLoad(month);

@@ -11,7 +11,7 @@
 
 <body>
   <div class="container">
-    <section class="first-screen">
+    <section class="first-screen visible">
       <div class="wrapper info">
         <img src="images/start.svg" alt="Фото главного экрана">
         <div class="info-decription__wrapper">
@@ -30,7 +30,7 @@
       </div>
     </section>
     <!-- /.first-screen -->
-    <section class="middle-screen visible">
+    <section class="middle-screen">
       <div class="wrapper">
         <h1 class="middle-title">Калькулятор зарплаты</h1>
         <form class="form">
@@ -63,6 +63,21 @@
             </select>
           </div>
           <!-- /.wrapper-select -->
+          <div class="mood">
+            <h3 class="mood-title">Как прошел ваш месяц?</h3>
+            <div class="wrapper-mood">
+              <img src="images/sad.png" alt="Грустный" class="wrapper-mood__img mood-img">
+              <img src="images/indifferent.png" alt="Нейтральный" class="wrapper-mood__img mood-img">
+              <img src="images/happy.png" alt="Счастливый" class="wrapper-mood__img mood-img">
+              <input class="mood-button" type="radio" name="mood" value="0">
+              <input class="mood-button" type="radio" name="mood" value="1">
+              <input class="mood-button" type="radio" name="mood" value="2">
+            </div>
+            <!-- /.wrapper-mood -->
+          </div>
+          <!-- /.mood -->
+
+
           <div class="input--optional">
             <input class="input night-hours" name="nightHours" placeholder="Ночные часы" autocomplete="off"
               type="number">

@@ -97,6 +97,34 @@ body
     background-size: contain
     background-position: center center
     margin: 10px 0 20px 0
+  &-mood
+    display: flex
+    justify-content: space-around
+    &__img
+      cursor: pointer
+      opacity: .7
+      transition: all .4s ease 0s
+
+.focus
+  opacity: 1
+  transition: all .4s ease 0s
+
+.mood
+  background-color: #242424ef
+  box-shadow: 0px 3px 10px rgba(119, 115, 115, 0.103)
+  padding: 20px 10px
+  border-radius: 16px
+  &-button
+    position: absolute
+    top: 0
+    left: 0
+    visibility: hidden
+  &-title
+    font-size: 22px
+    font-weight: 300
+    color: #e6e6e6
+    text-align: center
+    margin-bottom: 20px
 
 .preloader
   position: fixed
