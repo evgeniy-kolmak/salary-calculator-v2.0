@@ -11,7 +11,7 @@
 
 <body>
   <div class="container">
-    <section class="first-screen visible">
+    <section class="first-screen">
       <div class="wrapper info">
         <img src="images/start.svg" alt="Фото главного экрана">
         <div class="info-decription__wrapper">
@@ -30,37 +30,48 @@
       </div>
     </section>
     <!-- /.first-screen -->
-    <section class="middle-screen">
-      <form class="form">
-        <input name="workoutHours" placeholder="Отработаннные часы" autocomplete="off" type="number">
-        <input name="bonus" placeholder="Премия ( % )" autocomplete="off" type="number">
-        <select class="select tariff" name="tariff">
-          <option>Выберите разряд</option>
-          <option>2 разряд</option>
-          <option>3 разряд</option>
-          <option>4 разряд</option>
-          <option>4 разряд (коэффициент +)</option>
-          <option>4 разряд (коэффициент ++)</option>
-          <option>5 разряд</option>
-          <option>5 разряд(коэффициент +)</option>
-          <option>6 разряд</option>
-        </select>
-        <select class="select experience" name="experience">
-          <option>Ваш стаж</option>
-          <option>Менее года</option>
-          <option>От 1 года до 3</option>
-          <option>От 3 до 7 лет </option>
-          <option>7 лет и более</option>
-        </select>
-        <select class="select hardship" name="hardship">
-          <option>Надбавка за вредность</option>
-          <option>10%</option>
-          <option>14%</option>
-        </select>
-        <input name="nightHours" placeholder="Ночные часы" autocomplete="off" type="number">
-        <input name="oneTimeBonus" placeholder="Разовая премия" autocomplete="off" type="number">
-        <button class="button">Рассчитать</button>
-      </form>
+    <section class="middle-screen visible">
+      <div class="wrapper">
+        <h1 class="middle-title">Калькулятор зарплаты</h1>
+        <form class="form">
+          <input class="input workout-hours" name="workoutHours" placeholder="Отработаннные часы" autocomplete="off"
+            type="number">
+          <input class="input bonus" name="bonus" placeholder="Премия ( % )" autocomplete="off" type="number">
+          <div class="wrapper-select">
+            <select class="select tariff" name="tariff">
+              <option>Выберите разряд</option>
+              <option>2 разряд</option>
+              <option>3 разряд</option>
+              <option>4 разряд</option>
+              <option>4 разряд (коэффициент +)</option>
+              <option>4 разряд (коэффициент ++)</option>
+              <option>5 разряд</option>
+              <option>5 разряд(коэффициент +)</option>
+              <option>6 разряд</option>
+            </select>
+            <select class="select experience" name="experience">
+              <option>Ваш стаж</option>
+              <option>Менее года</option>
+              <option>От 1 года до 3</option>
+              <option>От 3 до 7 лет </option>
+              <option>7 лет и более</option>
+            </select>
+            <select class="select hardship" name="hardship">
+              <option>Надбавка за вредность</option>
+              <option>10%</option>
+              <option>14%</option>
+            </select>
+          </div>
+          <!-- /.wrapper-select -->
+          <div class="input--optional">
+            <input class="input night-hours" name="nightHours" placeholder="Ночные часы" autocomplete="off"
+              type="number">
+            <input class="input one-time-bonus" name="oneTimeBonus" placeholder="Разовая премия" autocomplete="off"
+              type="number">
+          </div>
+          <button class="button">Рассчитать</button>
+        </form>
+      </div>
     </section>
     <!-- /.middle-screen -->
     <section class="last-screen">
