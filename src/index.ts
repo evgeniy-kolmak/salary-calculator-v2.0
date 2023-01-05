@@ -144,7 +144,7 @@ backButton?.addEventListener('click', function (e) {
 function appLoad(month: number): void {
   const nomrHours = document.querySelector<HTMLParagraphElement>('.norm-hours');
   if (nomrHours) {
-    nomrHours.textContent = `Норма часов ${monthHours[month]} в этом месяце`;
+    nomrHours.innerHTML = `Норма часов <b>${monthHours[month]}</b> в этом месяце`;
   }
 
 }
@@ -170,7 +170,7 @@ function getOverHours(workOutHour: number, month: number) {
 
 function createOfMarkup<T extends Paycheck>(arg: T): void {
   const titleWage = Array.from<HTMLElement>(document.querySelectorAll('.show-wage'));
-  titleWage[0].innerHTML = `Зарплата за месяц составит <u>${arg.wage.clear}</u> byn`.toUpperCase();
+  titleWage[0].innerHTML = `Зарплата за месяц составит <br><u>${arg.wage.clear}</u> byn`.toUpperCase();
   titleWage[1].innerHTML = `Всего начислено <u>${arg.wage.dirty}</u> byn`.toUpperCase();
 
   const tittle = Array.from<HTMLElement>(document.querySelectorAll('.title'));

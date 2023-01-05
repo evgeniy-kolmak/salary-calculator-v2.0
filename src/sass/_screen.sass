@@ -1,30 +1,31 @@
 .info
+  display: flex
+  justify-content: space-between
+  align-items: center
   color: #306385
   padding: 30px
+  height: 900px
   &-decription
     font-size: 28px
     font-weight: 600
     line-height: 30px
     text-align: center
     margin-bottom: 20px
+    &__wrapper
+      display: flex
+      align-items: center
+      flex-direction: column
   &-norm-hours
     font-size: 20px
     line-height: 26px
     font-weight: 400
     text-decoration: underline
     margin-bottom: 40px
-
-.prime
-  align-items: center
-  justify-content: space-between
-  height: 930px
-  &-image
-    margin-bottom: 30px
   &-text
     display: flex
     align-items: center
     flex-direction: column
-    &__dicription
+    &__decription
       font-size: 28px
       font-weight: 600
       line-height: 30px
@@ -50,8 +51,6 @@
     flex-direction: column
     padding-top: 10%
 
-// 
-
 .show-wage
   &--clear
     text-align: center
@@ -59,10 +58,10 @@
     color: #0B4870
     font-weight: 700
     line-height: 30px
-    font-size: 18px
+    font-size: 19px
     text-transform: uppercase
   &--dirty
-    font-size: 19px
+    font-size: 17px
     font-weight: 700
     line-height: 30px
     margin-top: 10px
