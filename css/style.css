@@ -35,6 +35,43 @@ input, select {
   outline: none;
 }
 
+.select {
+  appearance: none;
+  background: #F8F8F8;
+  border: none;
+  box-shadow: inset 0px 3px 10px rgba(199, 199, 199, 0.25);
+  border-radius: 16px;
+  padding: 18px 0;
+  width: 100%;
+  font-size: 18px;
+  line-height: 30px;
+  padding-left: 25px;
+  margin-top: 15px;
+  color: #636161;
+  cursor: pointer;
+}
+
+.input {
+  background: #F8F8F8;
+  border: none;
+  box-shadow: 0px 3px 10px rgba(199, 199, 199, 0.25);
+  border-radius: 16px;
+  padding: 18px 20px;
+  width: 100%;
+  font-size: 18px;
+  line-height: 30px;
+  padding-left: 55px;
+  margin-top: 25px;
+}
+.input--optional {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(202, 220, 230, 0.5490196078);
+  box-shadow: 0px 3px 10px rgba(119, 115, 115, 0.103);
+  padding: 25px 10px;
+  border-radius: 16px;
+}
+
 li {
   list-style: none;
 }
@@ -82,11 +119,23 @@ body {
   padding: 15px 30px 30px 30px;
   margin: 30px 0;
 }
+.wrapper-select {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 30px 20px;
+  background-image: url(../images/bg.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  margin: 10px 0 20px 0;
+}
 
 .preloader {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 48%;
   overflow: hidden;
   font-size: 90px;
   width: 1em;
@@ -266,6 +315,52 @@ body {
   box-shadow: 0 0 0 0 rgb(0, 0, 0);
   transform: scale(1);
   animation: pulse 2s infinite;
+}
+
+.middle-title {
+  color: #0B4870;
+  font-weight: 600;
+  line-height: 35px;
+  font-size: 30px;
+  padding: 25px 0 15px 0;
+  text-transform: uppercase;
+}
+
+.tariff, .experience, .hardship {
+  background-image: url(../images/arrow.svg);
+  background-repeat: no-repeat;
+  background-position-x: calc(100% - 20px);
+  background-position-y: 50%;
+}
+
+.workout-hours {
+  background-image: url(../images/hour.svg);
+  background-repeat: no-repeat;
+  background-position: center left 20px;
+}
+
+.bonus {
+  background-image: url(../images/bonus.svg);
+  background-repeat: no-repeat;
+  background-position: center left 20px;
+}
+
+.night-hours {
+  background-image: url(../images/night.svg);
+  margin: 0;
+  width: 49%;
+  font-size: 14px;
+  background-repeat: no-repeat;
+  background-position: center left 20px;
+}
+
+.one-time-bonus {
+  background-image: url(../images/onetime.svg);
+  margin: 0;
+  width: 49%;
+  font-size: 14px;
+  background-repeat: no-repeat;
+  background-position: center left 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
