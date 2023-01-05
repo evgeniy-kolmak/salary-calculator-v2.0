@@ -45,6 +45,8 @@ body {
 }
 
 .container {
+  display: flex;
+  justify-content: center;
   max-width: 1180px;
   margin: auto;
 }
@@ -74,10 +76,11 @@ body {
   align-items: center;
   flex-direction: column;
   background-image: linear-gradient(60deg, #ACC7D5 0%, #D4EAFA 100%);
-  width: 455px;
+  width: 460px;
   border-radius: 40px;
   box-shadow: 0px 5px 17px rgba(58, 57, 57, 0.2);
-  padding: 0 30px;
+  padding: 15px 30px 30px 30px;
+  margin: 30px 0;
 }
 
 .preloader {
@@ -144,8 +147,12 @@ body {
   }
 }
 .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #306385;
   padding: 30px;
+  height: 900px;
 }
 .info-decription {
   font-size: 28px;
@@ -154,6 +161,11 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+.info-decription__wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .info-norm-hours {
   font-size: 20px;
   line-height: 26px;
@@ -161,28 +173,19 @@ body {
   text-decoration: underline;
   margin-bottom: 40px;
 }
-
-.prime {
-  align-items: center;
-  justify-content: space-between;
-  height: 930px;
-}
-.prime-image {
-  margin-bottom: 30px;
-}
-.prime-text {
+.info-text {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.prime-text__dicription {
+.info-text__decription {
   font-size: 28px;
   font-weight: 600;
   line-height: 30px;
   text-align: center;
   margin-bottom: 20px;
 }
-.prime-text__disclaimer {
+.info-text__disclaimer {
   font-size: 19px;
   font-weight: 300;
   line-height: 20px;
@@ -190,7 +193,7 @@ body {
   margin-left: 10px;
   color: #306385;
 }
-.prime-text__disclaimer--wrapper {
+.info-text__disclaimer--wrapper {
   display: flex;
   align-items: center;
   background-color: rgba(202, 220, 230, 0.5490196078);
@@ -198,7 +201,7 @@ body {
   padding: 25px 10px;
   border-radius: 20px;
 }
-.prime-content {
+.info-content {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -211,11 +214,11 @@ body {
   color: #0B4870;
   font-weight: 700;
   line-height: 30px;
-  font-size: 18px;
+  font-size: 19px;
   text-transform: uppercase;
 }
 .show-wage--dirty {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 30px;
   margin-top: 10px;
