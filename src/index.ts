@@ -6,7 +6,7 @@ interface DataList {
   professionalSkill: number,
   hardship: number,
   indexationIncome: number,
-  mood: number,
+  mood: string,
   overHours: number,
   nightHours: number
   oneTimeBonus: number,
@@ -33,7 +33,7 @@ interface Paycheck {
     "Пенсионный": string,
     "Профсоюз": string,
   },
-  mood: number
+  mood: string
 
 }
 const monthHours = [167, 160, 175, 151, 167, 176, 160, 184, 168, 176, 167, 160];
@@ -109,7 +109,7 @@ form?.addEventListener('submit', function (e: Event) {
     professionalSkill: getProfessionalSkill(form.tariff.selectedIndex),
     hardship: hardshipАllowance[form.hardship.selectedIndex],
     indexationIncome: 147.60,
-    mood: Number(form.mood.value),
+    mood: form.mood.value,
     overHours: getOverHours(Number(form.workoutHours.value), month),
     nightHours: getNightHours(tariffRate[form.tariff.selectedIndex], Number(nightHours.value)),
     oneTimeBonus: Number(oneTimeBonus.value),
@@ -172,16 +172,19 @@ backButton?.addEventListener('click', function (e) {
 
   if (output) {
     for (let i = 0; i < output.children.length; i++) {
-      if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+      if (output && !['BUTTON', 'H3', 'H2', 'IMG', "DIV"].includes(output.children[i].nodeName)) {
         output?.children[i].remove();
       }
 
     }
   }
 
+  const label = Array.from(document.querySelectorAll('label'));
+  label.forEach(l => l.textContent = '');
+
+  form?.reset()
   moodImgs.forEach(el => el.classList.remove('focus'));
   moodBtns.forEach(el => el.checked = false);
-
 
 });
 
@@ -217,7 +220,9 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
   titleWage[0].innerHTML = `Зарплата за месяц составит <br><u>${arg.wage.clear}</u> byn`.toUpperCase();
   titleWage[1].innerHTML = `Всего начислено <u>${arg.wage.dirty}</u> byn`.toUpperCase();
 
-  const tittle = Array.from<HTMLElement>(document.querySelectorAll('.title'));
+  const title = Array.from<HTMLElement>(document.querySelectorAll('.title'));
+
+  showEmotion(title[1], arg);
 
   const list = Object.entries(arg.list);
   const deduction = Object.entries(arg.deduction);
@@ -238,7 +243,7 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
     ulList.append(li);
   };
 
-  tittle[0]?.after(ulList);
+  title[1]?.after(ulList);
 
   const ulDeduction = document.createElement('ul');
   for (let i = 0; i < deduction.length; i++) {
@@ -256,7 +261,7 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
 
   };
 
-  tittle[1]?.after(ulDeduction);
+  title[2]?.after(ulDeduction);
 };
 
 
@@ -295,5 +300,44 @@ function showLabelHardship(): void {
   hardshipLabel!.innerHTML = `Вредность - ${(1.086 * hardshipАllowance[hardship!.selectedIndex]).toFixed(2)} копеек в час`;
 };
 
+
+
+function showEmotion<T extends Paycheck>(el: HTMLElement, arg: T): void {
+  const emotionImg = document.querySelector<HTMLImageElement>('.emotion-img');
+  const moodPercent = document.querySelector<HTMLSpanElement>('.mood-percent');
+
+  let percent = 0;
+  let emotion = 'default';
+
+  if (arg.mood) {
+    if (arg.mood === '0') percent = 10 + Math.floor(Math.random() * 15);
+
+    if (arg.mood === '1') percent = 30 + Math.floor(Math.random() * 30);
+
+    if (arg.mood === '2') percent = 50 + Math.floor(Math.random() * 30);
+
+    if (+arg.list["Разовая премия"]) percent += Math.floor(Math.random() * 20);
+
+    if (1 <= percent && percent <= 29) {
+      moodPercent?.setAttribute('style', 'color = #ef6669');
+      emotion = 'angry';
+    }
+
+    if (30 <= percent && percent <= 50) {
+      moodPercent?.setAttribute('style', 'color = #3a7ea1');
+      emotion = 'stress';
+    }
+
+    if (51 <= percent && percent <= 100) {
+      moodPercent?.setAttribute('style', 'color = #c9b714');
+      emotion = 'happiness';
+    }
+  }
+
+  emotionImg!.src = `images/${emotion}.png`
+  emotionImg!.alt = emotion;
+  moodPercent!.textContent = `${percent}%`;
+
+};
 
 appLoad(month);
