@@ -51,7 +51,7 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         professionalSkill: getProfessionalSkill(form.tariff.selectedIndex),
         hardship: hardshipАllowance[form.hardship.selectedIndex],
         indexationIncome: 147.60,
-        mood: Number(form.mood.value),
+        mood: form.mood.value,
         overHours: getOverHours(Number(form.workoutHours.value), month),
         nightHours: getNightHours(tariffRate[form.tariff.selectedIndex], Number(nightHours.value)),
         oneTimeBonus: Number(oneTimeBonus.value),
@@ -102,11 +102,14 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.add('visible');
     if (output) {
         for (var i = 0; i < output.children.length; i++) {
-            if (output && !['BUTTON', 'H3', 'H2', "IMG"].includes(output.children[i].nodeName)) {
+            if (output && !['BUTTON', 'H3', 'H2', 'IMG', "DIV"].includes(output.children[i].nodeName)) {
                 output === null || output === void 0 ? void 0 : output.children[i].remove();
             }
         }
     }
+    var label = Array.from(document.querySelectorAll('label'));
+    label.forEach(function (l) { return l.textContent = ''; });
+    form === null || form === void 0 ? void 0 : form.reset();
     moodImgs.forEach(function (el) { return el.classList.remove('focus'); });
     moodBtns.forEach(function (el) { return el.checked = false; });
 });
@@ -141,7 +144,8 @@ function createOfMarkup(arg) {
     var titleWage = Array.from(document.querySelectorAll('.show-wage'));
     titleWage[0].innerHTML = "\u0417\u0430\u0440\u043F\u043B\u0430\u0442\u0430 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446 \u0441\u043E\u0441\u0442\u0430\u0432\u0438\u0442 <br><u>".concat(arg.wage.clear, "</u> byn").toUpperCase();
     titleWage[1].innerHTML = "\u0412\u0441\u0435\u0433\u043E \u043D\u0430\u0447\u0438\u0441\u043B\u0435\u043D\u043E <u>".concat(arg.wage.dirty, "</u> byn").toUpperCase();
-    var tittle = Array.from(document.querySelectorAll('.title'));
+    var title = Array.from(document.querySelectorAll('.title'));
+    showEmotion(title[1], arg);
     var list = Object.entries(arg.list);
     var deduction = Object.entries(arg.deduction);
     var ulList = document.createElement('ul');
@@ -157,7 +161,7 @@ function createOfMarkup(arg) {
         ulList.append(li);
     }
     ;
-    (_a = tittle[0]) === null || _a === void 0 ? void 0 : _a.after(ulList);
+    (_a = title[1]) === null || _a === void 0 ? void 0 : _a.after(ulList);
     var ulDeduction = document.createElement('ul');
     for (var i = 0; i < deduction.length; i++) {
         var li = document.createElement('li');
@@ -171,7 +175,7 @@ function createOfMarkup(arg) {
         ulDeduction.append(li);
     }
     ;
-    (_b = tittle[1]) === null || _b === void 0 ? void 0 : _b.after(ulDeduction);
+    (_b = title[2]) === null || _b === void 0 ? void 0 : _b.after(ulDeduction);
 }
 ;
 function getDelayPreloader() {
@@ -205,6 +209,38 @@ function showLabelExperience() {
 ;
 function showLabelHardship() {
     hardshipLabel.innerHTML = "\u0412\u0440\u0435\u0434\u043D\u043E\u0441\u0442\u044C - ".concat((1.086 * hardshipАllowance[hardship.selectedIndex]).toFixed(2), " \u043A\u043E\u043F\u0435\u0435\u043A \u0432 \u0447\u0430\u0441");
+}
+;
+function showEmotion(el, arg) {
+    var emotionImg = document.querySelector('.emotion-img');
+    var moodPercent = document.querySelector('.mood-percent');
+    var percent = 0;
+    var emotion = 'default';
+    if (arg.mood) {
+        if (arg.mood === '0')
+            percent = 10 + Math.floor(Math.random() * 15);
+        if (arg.mood === '1')
+            percent = 30 + Math.floor(Math.random() * 30);
+        if (arg.mood === '2')
+            percent = 50 + Math.floor(Math.random() * 30);
+        if (+arg.list["Разовая премия"])
+            percent += Math.floor(Math.random() * 20);
+        if (1 <= percent && percent <= 29) {
+            moodPercent === null || moodPercent === void 0 ? void 0 : moodPercent.setAttribute('style', 'color = #ef6669');
+            emotion = 'angry';
+        }
+        if (30 <= percent && percent <= 50) {
+            moodPercent === null || moodPercent === void 0 ? void 0 : moodPercent.setAttribute('style', 'color = #3a7ea1');
+            emotion = 'stress';
+        }
+        if (51 <= percent && percent <= 100) {
+            moodPercent === null || moodPercent === void 0 ? void 0 : moodPercent.setAttribute('style', 'color = #c9b714');
+            emotion = 'happiness';
+        }
+    }
+    emotionImg.src = "images/".concat(emotion, ".png");
+    emotionImg.alt = emotion;
+    moodPercent.textContent = "".concat(percent, "%");
 }
 ;
 appLoad(month);
