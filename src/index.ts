@@ -50,6 +50,7 @@ const lastScreen = document.querySelector<HTMLDivElement>('.last-screen');
 
 const form = document.querySelector<HTMLFormElement>('.form');
 const preloader = document.querySelector<HTMLDivElement>('.preloader-overlay');
+const middle = document.querySelector<HTMLDivElement>('.middle');
 const output = document.querySelector<HTMLDivElement>('.output');
 
 
@@ -155,13 +156,14 @@ form?.addEventListener('submit', function (e: Event) {
     lastScreen?.classList.add('visible')
   }, time);
 
+  preloader?.setAttribute('style', `height: ${middle?.clientHeight}px`);
+
 
   workoutHours?.removeEventListener('change', showLabelWorkoutHours);
   bonus?.removeEventListener('change', showLabelBonus);
   tariff?.removeEventListener('change', showLabelTariff);
   experience?.removeEventListener('change', showLabelExperience);
   hardship?.removeEventListener('change', showLabelHardship);
-
 
 });
 
