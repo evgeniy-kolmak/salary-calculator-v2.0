@@ -11,6 +11,16 @@ var lastScreen = document.querySelector('.last-screen');
 var form = document.querySelector('.form');
 var preloader = document.querySelector('.preloader-overlay');
 var output = document.querySelector('.output');
+var workoutHours = document.querySelector('.workout-hours');
+var bonus = document.querySelector('.bonus');
+var tariff = document.querySelector('.tariff');
+var experience = document.querySelector('.experience');
+var hardship = document.querySelector('.hardship');
+var workoutHoursLabel = document.querySelector('.workout-hours-label');
+var bonusLabel = document.querySelector('.bonus-label');
+var tariffLabel = document.querySelector('.tariff-label');
+var experienceLabel = document.querySelector('.experience-label');
+var hardshipLabel = document.querySelector('.hardship-label');
 var moodImgs = Array.from(document.querySelectorAll('.mood-img'));
 var moodBtns = Array.from(document.querySelectorAll('.mood-button'));
 var month = new Date().getMonth();
@@ -23,31 +33,31 @@ startButton === null || startButton === void 0 ? void 0 : startButton.addEventLi
         moodImgs.forEach(function (item) { return item.classList.remove('focus'); });
         el.classList.add('focus');
     }; });
+    workoutHours === null || workoutHours === void 0 ? void 0 : workoutHours.addEventListener('input', showLabelWorkoutHours);
+    bonus === null || bonus === void 0 ? void 0 : bonus.addEventListener('input', showLabelBonus);
+    tariff === null || tariff === void 0 ? void 0 : tariff.addEventListener('change', showLabelTariff);
+    experience === null || experience === void 0 ? void 0 : experience.addEventListener('change', showLabelExperience);
+    hardship === null || hardship === void 0 ? void 0 : hardship.addEventListener('change', showLabelHardship);
 });
 form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var bonus = form.bonus;
-    var workoutHours = form.workoutHours;
     var nightHours = form.nightHours;
     var oneTimeBonus = form.oneTimeBonus;
-    var tariff = form.tariff;
-    var experience = form.experience;
-    var hardship = form.hardship;
     var dataList = {
-        workoutHours: Number(workoutHours.value),
-        bonus: Number(bonus.value) / 100,
-        tariff: tariffRate[tariff.selectedIndex],
-        experience: workExperience[experience.selectedIndex],
-        professionalSkill: getProfessionalSkill(tariff.selectedIndex),
-        hardship: hardshipАllowance[hardship.selectedIndex],
+        workoutHours: Number(form.workoutHours.value),
+        bonus: Number(form.bonus.value) / 100,
+        tariff: tariffRate[form.tariff.selectedIndex],
+        experience: workExperience[form.experience.selectedIndex],
+        professionalSkill: getProfessionalSkill(form.tariff.selectedIndex),
+        hardship: hardshipАllowance[form.hardship.selectedIndex],
         indexationIncome: 147.60,
         mood: Number(form.mood.value),
-        overHours: getOverHours(Number(workoutHours.value), month),
-        nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
+        overHours: getOverHours(Number(form.workoutHours.value), month),
+        nightHours: getNightHours(tariffRate[form.tariff.selectedIndex], Number(nightHours.value)),
         oneTimeBonus: Number(oneTimeBonus.value),
     };
     var baseSalary = dataList.workoutHours * dataList.tariff;
-    var dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.076 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
+    var dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.086 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
     var clearSalary = dirtySalary - (dirtySalary * 0.15);
     var paycheck = {
         wage: {
@@ -80,6 +90,11 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.remove('visible');
         lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.add('visible');
     }, time);
+    workoutHours === null || workoutHours === void 0 ? void 0 : workoutHours.removeEventListener('change', showLabelWorkoutHours);
+    bonus === null || bonus === void 0 ? void 0 : bonus.removeEventListener('change', showLabelBonus);
+    tariff === null || tariff === void 0 ? void 0 : tariff.removeEventListener('change', showLabelTariff);
+    experience === null || experience === void 0 ? void 0 : experience.removeEventListener('change', showLabelExperience);
+    hardship === null || hardship === void 0 ? void 0 : hardship.removeEventListener('change', showLabelHardship);
 });
 backButton === null || backButton === void 0 ? void 0 : backButton.addEventListener('click', function (e) {
     e.preventDefault();
@@ -92,6 +107,8 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
             }
         }
     }
+    moodImgs.forEach(function (el) { return el.classList.remove('focus'); });
+    moodBtns.forEach(function (el) { return el.checked = false; });
 });
 function appLoad(month) {
     var nomrHours = document.querySelector('.norm-hours');
@@ -164,4 +181,30 @@ function getDelayPreloader() {
     }
     return value;
 }
+;
+function showLabelWorkoutHours() {
+    workoutHoursLabel.textContent =
+        +workoutHours.value > monthHours[month]
+            ?
+                "\u0421\u0432\u0435\u0440\u0445\u0443\u0440\u043E\u0447\u043D\u044B\u0445 \u0447\u0430\u0441\u043E\u0432 -  ".concat(+workoutHours.value - monthHours[month])
+            :
+                "\u042D\u0442\u043E \u043E\u043A\u043E\u043B\u043E ".concat(Math.floor(+workoutHours.value / 8), " \u0434\u043D\u0435\u0439");
+}
+;
+function showLabelBonus() {
+    bonusLabel.textContent = "\u041F\u0440\u0438\u043C\u0435\u0440\u043D\u043E ".concat(workoutHours && bonus ? (+workoutHours.value * 2.16 * +(+bonus.value / 100)).toFixed(2) : '0.00', " BYN \u0432 \u044D\u0442\u043E\u043C \u043C\u0435\u0441\u044F\u0446\u0435");
+}
+;
+function showLabelTariff() {
+    tariffLabel.textContent = "\u0422\u0430\u0440\u0438\u0444\u043D\u0430\u044F \u0441\u0442\u0430\u0432\u043A\u0430 ".concat(tariffRate[tariff.selectedIndex], " BYN \u0432 \u0447\u0430\u0441");
+}
+;
+function showLabelExperience() {
+    experienceLabel.textContent = "\u041F\u0440\u0438\u043C\u0435\u0440\u043D\u043E \u0437\u0430 \u043F\u043E\u043B\u043D\u044B\u0439  \u043C\u0435\u0441\u044F\u0446 - ".concat((monthHours[month] * 2 * workExperience[experience.selectedIndex]), " BYN");
+}
+;
+function showLabelHardship() {
+    hardshipLabel.innerHTML = "\u0412\u0440\u0435\u0434\u043D\u043E\u0441\u0442\u044C - ".concat((1.086 * hardshipАllowance[hardship.selectedIndex]).toFixed(2), " \u043A\u043E\u043F\u0435\u0435\u043A \u0432 \u0447\u0430\u0441");
+}
+;
 appLoad(month);

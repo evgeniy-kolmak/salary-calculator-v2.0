@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
   <title>Калькулятор зарплаты</title>
 </head>
@@ -34,9 +35,14 @@
       <div class="wrapper">
         <h1 class="middle-title">Калькулятор зарплаты</h1>
         <form class="form">
-          <input class="input workout-hours" name="workoutHours" placeholder="Отработаннные часы" autocomplete="off"
-            type="number">
-          <input class="input bonus" name="bonus" placeholder="Премия ( % )" autocomplete="off" type="number">
+          <div class="wrapper-input">
+            <input class="input workout-hours" name="workoutHours" placeholder="Отработаннные часы" autocomplete="off"
+              type="number">
+            <label for="workout-hours" class="workout-hours-label label"></label>
+            <input class="input bonus" name="bonus" placeholder="Премия ( % )" autocomplete="off" type="number">
+            <label for="bonus" class="bonus-label label"></label>
+          </div>
+          <!-- /.wrapper-input -->
           <div class="wrapper-select">
             <select class="select tariff" name="tariff">
               <option>Выберите разряд</option>
@@ -49,6 +55,7 @@
               <option>5 разряд(коэффициент +)</option>
               <option>6 разряд</option>
             </select>
+            <label for="tariff" class="tariff-label label"></label>
             <select class="select experience" name="experience">
               <option>Ваш стаж</option>
               <option>Менее года</option>
@@ -56,11 +63,13 @@
               <option>От 3 до 7 лет </option>
               <option>7 лет и более</option>
             </select>
+            <label for="experience" class="experience-label label"></label>
             <select class="select hardship" name="hardship">
               <option>Надбавка за вредность</option>
               <option>10%</option>
               <option>14%</option>
             </select>
+            <label for="hardship" class="hardship-label label"></label>
           </div>
           <!-- /.wrapper-select -->
           <div class="mood">
