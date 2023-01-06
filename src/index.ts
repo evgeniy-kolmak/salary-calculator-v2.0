@@ -52,10 +52,26 @@ const form = document.querySelector<HTMLFormElement>('.form');
 const preloader = document.querySelector<HTMLDivElement>('.preloader-overlay');
 const output = document.querySelector<HTMLDivElement>('.output');
 
+
+const workoutHours = document.querySelector<HTMLInputElement>('.workout-hours');
+const bonus = document.querySelector<HTMLInputElement>('.bonus');
+const tariff = document.querySelector<HTMLSelectElement>('.tariff');
+const experience = document.querySelector<HTMLSelectElement>('.experience');
+const hardship = document.querySelector<HTMLSelectElement>('.hardship');
+
+
+const workoutHoursLabel = document.querySelector<HTMLLabelElement>('.workout-hours-label');
+const bonusLabel = document.querySelector<HTMLLabelElement>('.bonus-label');
+const tariffLabel = document.querySelector<HTMLLabelElement>('.tariff-label');
+const experienceLabel = document.querySelector<HTMLLabelElement>('.experience-label');
+const hardshipLabel = document.querySelector<HTMLLabelElement>('.hardship-label');
+
+
 const moodImgs = Array.from(document.querySelectorAll<HTMLImageElement>('.mood-img'));
 const moodBtns = Array.from(document.querySelectorAll<HTMLInputElement>('.mood-button'));
 
 const month = new Date().getMonth();
+
 
 
 
@@ -70,39 +86,38 @@ startButton?.addEventListener('click', function (e) {
 
   });
 
-})
+  workoutHours?.addEventListener('input', showLabelWorkoutHours);
+  bonus?.addEventListener('input', showLabelBonus);
+  tariff?.addEventListener('change', showLabelTariff);
+  experience?.addEventListener('change', showLabelExperience);
+  hardship?.addEventListener('change', showLabelHardship);
+
+});
 
 
 form?.addEventListener('submit', function (e: Event) {
   e.preventDefault();
 
-  const bonus: HTMLInputElement = form.bonus;
-  const workoutHours: HTMLInputElement = form.workoutHours;
   const nightHours: HTMLInputElement = form.nightHours;
   const oneTimeBonus: HTMLInputElement = form.oneTimeBonus;
-  const tariff: HTMLSelectElement = form.tariff;
-  const experience: HTMLSelectElement = form.experience;
-  const hardship: HTMLSelectElement = form.hardship;
 
   const dataList: DataList = {
-    workoutHours: Number(workoutHours.value),
-    bonus: Number(bonus.value) / 100,
-    tariff: tariffRate[tariff.selectedIndex],
-    experience: workExperience[experience.selectedIndex],
-    professionalSkill: getProfessionalSkill(tariff.selectedIndex),
-    hardship: hardshipАllowance[hardship.selectedIndex],
+    workoutHours: Number(form.workoutHours.value),
+    bonus: Number(form.bonus.value) / 100,
+    tariff: tariffRate[form.tariff.selectedIndex],
+    experience: workExperience[form.experience.selectedIndex],
+    professionalSkill: getProfessionalSkill(form.tariff.selectedIndex),
+    hardship: hardshipАllowance[form.hardship.selectedIndex],
     indexationIncome: 147.60,
     mood: Number(form.mood.value),
-    overHours: getOverHours(Number(workoutHours.value), month),
-    nightHours: getNightHours(tariffRate[tariff.selectedIndex], Number(nightHours.value)),
+    overHours: getOverHours(Number(form.workoutHours.value), month),
+    nightHours: getNightHours(tariffRate[form.tariff.selectedIndex], Number(nightHours.value)),
     oneTimeBonus: Number(oneTimeBonus.value),
   };
 
 
-
-
   const baseSalary = dataList.workoutHours * dataList.tariff;
-  const dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.076 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
+  const dirtySalary = baseSalary + (baseSalary * dataList.bonus) + (baseSalary * dataList.experience) + (baseSalary * dataList.professionalSkill) + (dataList.workoutHours * 1.086 * dataList.hardship) + dataList.indexationIncome + (dataList.overHours * dataList.tariff) + dataList.nightHours + dataList.oneTimeBonus;
   const clearSalary = dirtySalary - (dirtySalary * 0.15);
 
   const paycheck: Paycheck = {
@@ -141,6 +156,13 @@ form?.addEventListener('submit', function (e: Event) {
   }, time);
 
 
+  workoutHours?.removeEventListener('change', showLabelWorkoutHours);
+  bonus?.removeEventListener('change', showLabelBonus);
+  tariff?.removeEventListener('change', showLabelTariff);
+  experience?.removeEventListener('change', showLabelExperience);
+  hardship?.removeEventListener('change', showLabelHardship);
+
+
 });
 
 backButton?.addEventListener('click', function (e) {
@@ -156,6 +178,10 @@ backButton?.addEventListener('click', function (e) {
 
     }
   }
+
+  moodImgs.forEach(el => el.classList.remove('focus'));
+  moodBtns.forEach(el => el.checked = false);
+
 
 });
 
@@ -240,7 +266,34 @@ function getDelayPreloader(): number {
     value = Math.floor(Math.random() * 5000);
   }
   return value;
-}
+
+};
+
+
+function showLabelWorkoutHours(): void {
+  workoutHoursLabel!.textContent =
+    +workoutHours!.value > monthHours[month]
+      ?
+      `Сверхурочных часов -  ${+workoutHours!.value - monthHours[month]}`
+      :
+      `Это около ${Math.floor(+workoutHours!.value / 8)} дней`;
+};
+
+function showLabelBonus(): void {
+  bonusLabel!.textContent = `Примерно ${workoutHours && bonus ? (+workoutHours.value * 2.16 * +(+bonus.value / 100)).toFixed(2) : '0.00'} BYN в этом месяце`;
+};
+
+function showLabelTariff(): void {
+  tariffLabel!.textContent = `Тарифная ставка ${tariffRate[tariff!.selectedIndex]} BYN в час`;
+};
+
+function showLabelExperience(): void {
+  experienceLabel!.textContent = `Примерно за полный  месяц - ${(monthHours[month] * 2 * workExperience[experience!.selectedIndex])} BYN`;
+};
+
+function showLabelHardship(): void {
+  hardshipLabel!.innerHTML = `Вредность - ${(1.086 * hardshipАllowance[hardship!.selectedIndex]).toFixed(2)} копеек в час`;
+};
 
 
 appLoad(month);
