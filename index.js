@@ -25,7 +25,6 @@ var hardshipLabel = document.querySelector('.hardship-label');
 var moodImgs = Array.from(document.querySelectorAll('.mood-img'));
 var moodBtns = Array.from(document.querySelectorAll('.mood-button'));
 var month = new Date().getMonth();
-var scrolled = window.scrollY;
 startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', function (e) {
     e.preventDefault();
     firstScreen === null || firstScreen === void 0 ? void 0 : firstScreen.classList.remove('visible');
@@ -40,7 +39,6 @@ startButton === null || startButton === void 0 ? void 0 : startButton.addEventLi
     tariff === null || tariff === void 0 ? void 0 : tariff.addEventListener('change', showLabelTariff);
     experience === null || experience === void 0 ? void 0 : experience.addEventListener('change', showLabelExperience);
     hardship === null || hardship === void 0 ? void 0 : hardship.addEventListener('change', showLabelHardship);
-    window.scrollTo(0, 0);
 });
 form === null || form === void 0 ? void 0 : form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -92,7 +90,6 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
         preloader === null || preloader === void 0 ? void 0 : preloader.classList.remove('visible');
         middleScreen === null || middleScreen === void 0 ? void 0 : middleScreen.classList.remove('visible');
         lastScreen === null || lastScreen === void 0 ? void 0 : lastScreen.classList.add('visible');
-        window.scrollTo(0, 0);
     }, time);
     preloader === null || preloader === void 0 ? void 0 : preloader.setAttribute('style', "height: ".concat(middle === null || middle === void 0 ? void 0 : middle.clientHeight, "px"));
     workoutHours === null || workoutHours === void 0 ? void 0 : workoutHours.removeEventListener('change', showLabelWorkoutHours);
@@ -117,7 +114,6 @@ backButton === null || backButton === void 0 ? void 0 : backButton.addEventListe
     form === null || form === void 0 ? void 0 : form.reset();
     moodImgs.forEach(function (el) { return el.classList.remove('focus'); });
     moodBtns.forEach(function (el) { return el.checked = false; });
-    window.scrollTo(0, 0);
 });
 function appLoad(month) {
     var nomrHours = document.querySelector('.norm-hours');
@@ -125,7 +121,6 @@ function appLoad(month) {
         nomrHours.innerHTML = "\u041D\u043E\u0440\u043C\u0430 \u0447\u0430\u0441\u043E\u0432 <b>".concat(monthHours[month], "</b> \u0432 \u044D\u0442\u043E\u043C \u043C\u0435\u0441\u044F\u0446\u0435");
     }
 }
-;
 function getNightHours(tariff, nightHours) {
     return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
 }
@@ -250,18 +245,4 @@ function showEmotion(el, arg) {
     moodPercent.textContent = "".concat(percent, "%");
 }
 ;
-function scrollToTop(scrolled) {
-    console.log(scrolled);
-    var timer;
-    if (scrolled > 0) {
-        window.scroll(0, scrolled);
-        scrolled = scrolled - 35;
-        timer = setTimeout(scrollToTop, 15);
-        console.log(scrolled, timer);
-    }
-    else {
-        clearTimeout(timer);
-        window.scrollTo(0, 0);
-    }
-}
 appLoad(month);
