@@ -159,6 +159,7 @@ function createOfMarkup(arg) {
         var li = document.createElement('li');
         li.classList.add('wage-item');
         var h3 = document.createElement('h3');
+        h3.classList.add('wage-title');
         var span = document.createElement('span');
         h3.textContent = list[i][0];
         span.textContent = "".concat(list[i][1], " byn").toUpperCase();
@@ -175,6 +176,7 @@ function createOfMarkup(arg) {
         var h3 = document.createElement('h3');
         var span = document.createElement('span');
         h3.textContent = deduction[i][0];
+        h3.classList.add('wage-title');
         span.textContent = "".concat(deduction[i][1], " byn").toUpperCase();
         li.prepend(h3);
         li.append(span);
