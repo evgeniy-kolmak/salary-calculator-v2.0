@@ -75,7 +75,6 @@ const month = new Date().getMonth();
 
 
 
-
 startButton?.addEventListener('click', function (e) {
   e.preventDefault();
   firstScreen?.classList.remove('visible');
@@ -92,7 +91,7 @@ startButton?.addEventListener('click', function (e) {
   tariff?.addEventListener('change', showLabelTariff);
   experience?.addEventListener('change', showLabelExperience);
   hardship?.addEventListener('change', showLabelHardship);
-
+  window.scrollTo(0, 0);
 });
 
 
@@ -153,11 +152,11 @@ form?.addEventListener('submit', function (e: Event) {
   setTimeout(() => {
     preloader?.classList.remove('visible');
     middleScreen?.classList.remove('visible');
-    lastScreen?.classList.add('visible')
+    lastScreen?.classList.add('visible');
+    window.scrollTo(0, 0);
   }, time);
 
   preloader?.setAttribute('style', `height: ${middle?.clientHeight}px`);
-
 
   workoutHours?.removeEventListener('change', showLabelWorkoutHours);
   bonus?.removeEventListener('change', showLabelBonus);
@@ -187,6 +186,7 @@ backButton?.addEventListener('click', function (e) {
   form?.reset()
   moodImgs.forEach(el => el.classList.remove('focus'));
   moodBtns.forEach(el => el.checked = false);
+  window.scrollTo(0, 0)
 
 });
 
@@ -196,8 +196,7 @@ function appLoad(month: number): void {
     nomrHours.innerHTML = `Норма часов <b>${monthHours[month]}</b> в этом месяце`;
   }
 
-}
-
+};
 
 function getNightHours(tariff: number, nightHours: number): number {
   return tariff && nightHours ? (tariff * nightHours) * 0.4 : 0;
@@ -215,7 +214,6 @@ function getOverHours(workOutHour: number, month: number) {
   return monthHours[month] < workOutHour ? (workOutHour - monthHours[month]) * 2 : 0;
 
 };
-
 
 function createOfMarkup<T extends Paycheck>(arg: T): void {
   const titleWage = Array.from<HTMLElement>(document.querySelectorAll('.show-wage'));
@@ -301,7 +299,6 @@ function showLabelExperience(): void {
 function showLabelHardship(): void {
   hardshipLabel!.innerHTML = `Вредность - ${(1.086 * hardshipАllowance[hardship!.selectedIndex]).toFixed(2)} копеек в час`;
 };
-
 
 
 function showEmotion<T extends Paycheck>(el: HTMLElement, arg: T): void {
