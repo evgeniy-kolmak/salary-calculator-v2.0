@@ -233,6 +233,7 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
     const li = document.createElement('li');
     li.classList.add('wage-item');
     const h3 = document.createElement('h3');
+    h3.classList.add('wage-title');
     const span = document.createElement('span');
 
     h3.textContent = list[i][0];
@@ -253,6 +254,7 @@ function createOfMarkup<T extends Paycheck>(arg: T): void {
     const span = document.createElement('span');
 
     h3.textContent = deduction[i][0];
+    h3.classList.add('wage-title');
     span.textContent = `${deduction[i][1]} byn`.toUpperCase();
 
     li.prepend(h3);
