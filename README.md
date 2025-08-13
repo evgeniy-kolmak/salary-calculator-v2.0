@@ -1,7 +1,7 @@
 <p align="center">
       <img src="https://i.ibb.co/yWSs2cR/calculator.png" width="150">
 </p>
-<p align="center"><img src="https://readme-typing-svg.demolab.com?font=Comfortaa&size=32&pause=1000&color=FFFFFF&center=true&width=532&lines=SALARY+CALCULATOR" alt="Typing SVG" /></p>
+<h1 align="center">SALARY CALCULATOR</h1>
 <p align="center">
    <img src="https://img.shields.io/badge/Typescript-%5E4.9.4-blue" alt="Typescript Version">
    <img src="https://img.shields.io/badge/Version-v2.0-9cf" alt="App Version">
